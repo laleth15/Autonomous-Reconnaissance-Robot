@@ -65,7 +65,7 @@ source devel/setup.bash # Source your ROS distro
 ****
 For apriltag detection, we will be using the apriltag_ros package which gives the pose and tag id of the detected tags in the environment. The apriltag_ros may sometimes cause an issue with the installed ros packages, hence for this reason we will be creating a separate workspace specifically for apriltag *This is a better option than creating everything in one workspace.*
 
-Alternatively you can run the apriltag_ws_build shell script from this repo by running ./apriltag_ws_build.sh
+Alternatively, you can run the apriltag_ws_build shell script from this repo by running ./apriltag_ws_build.sh
 https://github.com/AprilRobotics/apriltag_ros
 ****
 On RPC
@@ -88,7 +88,7 @@ source ~/.bashrc
 Download the tag_detec.py file from this repo and paste it in apriltag_ros/apriltag_ros/src and run catkin build.
 ### Installing Explore lite package (Optional, Just for benchmarking).
 ****
-**ROS Noetic** uses explore lite package for greedy-based frontier exploration. More details can be found here http://wiki.ros.org/explore_lite
+**ROS Noetic** uses the explore lite package for greedy-based frontier exploration. More details can be found here http://wiki.ros.org/explore_lite
 ```console
 cd ~/catkin_ws/src 
 git clone https://github.com/hrnr/m-explore.git
@@ -173,12 +173,12 @@ After the exploration is completed an info message will be printed on the move_b
 rosrun map_server map_saver -f dry_run_map
 ```
 # Initialising...
-So far we have installed all the required dependencies and packages required for this project. Now it's time to test it all together. For aprilatg id and pose detection getting published we have created an algorithm for that in whcih the apriltag_tracking node will keep a note on detected apriltags and their pose and write those in a unique txt file so that if unexpectedly the node gets crashed then we can have the data for each apriltag.
-For exploring the robot using RRT exploration follow the same steps as you did in testing the setup but instead of launching explore_lite we will be launching rrt_exploration.
-*Follow the below sequence of commands as there might be tf costmap synchronisation errors due to the tag_detect.py, this optimisation is left for future work.
+So far we have installed all the required dependencies and packages required for this project. Now it's time to test it all together. For aprilatg id and pose detection getting published we have created an algorithm for that in which the apriltag_tracking node will keep a note on detected apriltags and their pose and write those in a unique txt file so that if unexpectedly the node gets crashed then we can have the data for each apriltag.
+For exploring the robot using RRT exploration follow the same steps as you did in testing the setup but instead of launching explore_lite, we will be launching rrt_exploration.
+*Follow the below sequence of commands as there might be tf costmap synchronization errors due to the tag_detect.py, this optimization is left for future work.
 
-Also for rrt_exlporationn you need to provide in total of 5 points which denotes the global and local planner to explore the tree in that manner. 
-*Remember this step is extremely important for rrt based exploration because if the points are selected in different pattern or different size than the birdeye view of the map then it will cause unexpected results*
+Also for rrt_exlporationn you need to provide a total of 5 points which denotes the global and local planner to explore the tree in that manner. 
+*Remember this step is extremely important for RRT-based exploration because if the points are selected in different patterns or different sizes than the bird-eye view of the map then it will cause unexpected results*
 You can find more details in the report in this repo and here http://wiki.ros.org/rrt_exploration/Tutorials/singleRobot
 
 **On RPC**
@@ -191,6 +191,11 @@ rosrun apriltag_ros tag_detect.py
 roslaunch turtlebot3_navigation move_base.launch
 roslaunch rrt_exploration single.launch #select 5 points and the robot should start moving.
 ```
-Below is the output of the run. If you notice that the robot doesnot move in a continous manner, this was caused by synchronisation error and tag_detect.py code.
+Below is the output of the run. If you notice that the robot does not move continuously, this was caused by a synchronization error and tag_detect.py code.
 https://northeastern-my.sharepoint.com/personal/desai_ven_northeastern_edu/_layouts/15/onedrive.aspx?ga=1&id=%2Fpersonal%2Fdesai%5Fven%5Fnortheastern%5Fedu%2FDocuments%2FSplinter
 Youtube - https://youtu.be/gg17nGIT8wM
+Reference: 
+https://github.com/prabinrath/rrt_exploration.git
+Collaborators:
+Akhil Sasi Kumar, Gaurav Mishra, Laleth Indirani Nehrukumar,
+Shirish Kishore Kumar, Venkatesh Desai, Yash Mewada
